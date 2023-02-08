@@ -1,0 +1,27 @@
+﻿@{
+    var slides = (List<Model.EntityFramework.ProductCategory>)ViewBag.ProCate;
+}
+<div class="header_bottom_left">
+    <div class="categories">
+        <ul>
+            <h3>Danh mục sản phẩm</h3>
+            @foreach (var item in slides.Where(x=>x.ParentID == null))
+            {
+                var child = slides.Where(x => x.ParentID == item.ID);
+                var parrentClass = child.Count() > 0 ? "class=dropdown-toggle data-toggle=dropdown " : "";
+                <li class="dropdown" style="line-height: 32.5px; font-size:22px">
+                    <a href="/san-pham/@item.MetaTitle-@item.ID" @parrentClass>@item.Name</a>
+                    @if (child.Count() > 0)
+                    {
+                        <ul class="dropdown-menu">
+                            @foreach (var childItem in child)
+                            {
+                                <li><a href="/san-pham/@childItem.MetaTitle-@childItem.ID">@childItem.Name</a></li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>

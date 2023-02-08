@@ -1,0 +1,204 @@
+﻿@model Model.EntityFramework.Product
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cate = (Model.EntityFramework.ProductCategory)ViewBag.Category;
+    var relatedPro = (List<Model.EntityFramework.Product>)ViewBag.RelatedProduct;
+}
+
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="back-links">
+                <p><a href="/">Trang chủ</a> >>> <a href="/san-pham/@cate.MetaTitle-@cate.ID">@cate.Name</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            <div class="cont-desc span_1_of_2">
+                <div class="product-details">
+                    <div class="grid images_3_of_2">
+                        <div id="container">
+                            <div id="products_example">
+                                <div id="products">
+                                    <div class="slides_container">
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-1.jpg" alt=" " /></a>
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-2.jpg" alt=" " /></a>
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-3.jpg" alt=" " /></a>
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-4.jpg" alt=" " /></a>
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-5.jpg" alt=" " /></a>
+                                        <a href="#" target="_blank"><img src="~/Assets/Client/images/productslide-6.jpg" alt=" " /></a>
+                                    </div>
+                                    <ul class="pagination">
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-1.jpg" alt=" " /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-2.jpg" alt=" " /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-3.jpg" alt=" " /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-4.jpg" alt=" " /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-5.jpg" alt=" " /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/thumbnailslide-6.jpg" alt=" " /></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desc span_3_of_2">
+                        <h2 style="font-size: 27px">@Model.Name</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <div class="price">
+                            <p>Giá: <span style="font-size: 25px">@Model.Price.Value.ToString("N0") VND</span></p>
+                        </div>
+                        <div class="available">
+                            <p>Available Options :</p>
+                            <ul>
+                                <li>
+                                    Color:
+                                    <select>
+                                        <option>Silver</option>
+                                        <option>Black</option>
+                                        <option>Dark Black</option>
+                                        <option>Red</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    Size:<select>
+                                        <option>Large</option>
+                                        <option>Medium</option>
+                                        <option>small</option>
+                                        <option>Large</option>
+                                        <option>small</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    Quality:<select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="share-desc">
+                            <div class="share">
+                                <p>Chia sẻ:</p>
+                                <ul>
+                                    <li><a href="#"><img src="~/Assets/Client/images/facebook.png" alt="" /></a></li>
+                                    <li><a href="#"><img src="~/Assets/Client/images/twitter.png" alt="" /></a></li>
+                                </ul>
+                            </div>
+                            <div class="button"><span><a href="#">Thêm vào giỏ hàng</a></span></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="product_desc">
+                    <div id="horizontalTab">
+                        <ul class="resp-tabs-list">
+                            <li>Product Details</li>
+                            <div class="clear"></div>
+                        </ul>
+                        <div class="resp-tabs-container">
+                            @Html.Raw(Model.Detail)
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#horizontalTab').easyResponsiveTabs({
+                            type: 'default', //Types: default, vertical, accordion
+                            width: 'auto', //auto or any width like 600px
+                            fit: true   // 100% fit in a container
+                        });
+                    });</script>
+                <div class="content_bottom">
+                    <div class="heading">
+                        <h3>Sản phẩm liên quan</h3>
+                    </div>
+                    <div class="see">
+                        <p><a href="/san-pham/@cate.MetaTitle-@cate.ID">Xem tất cả</a></p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="section group">
+                    @foreach (var item in relatedPro)
+                    {
+                        <div class="grid_1_of_3 images_1_of_3">
+                            <a href="/chi-tiet/@item.MetaTitle-@item.ID"><img src="~/Assets/Client/images/@item.Image" alt=""></a>
+                            <div class="price" style="border:none; margin-top: 20px">
+                                <div class="add-cart" style="float:none">
+                                    <h4><a href="#">Thêm vào giỏ hàng</a></h4>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                </div>
+
+            <div class="rightsidebar span_3_of_1">
+                <h2>CATEGORIES</h2>
+                <ul class="side-w3ls">
+                    <li><a href="#">Mobile Phones</a></li>
+                    <li><a href="#">Desktop</a></li>
+                    <li><a href="#">Laptop</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Sports &amp; Fitness</a></li>
+                    <li><a href="#">Footwear</a></li>
+                    <li><a href="#">Jewellery</a></li>
+                    <li><a href="#">Clothing</a></li>
+                    <li><a href="#">Home Decor &amp; Kitchen</a></li>
+                    <li><a href="#">Beauty &amp; Healthcare</a></li>
+                    <li><a href="#">Toys, Kids &amp; Babies</a></li>
+                </ul>
+                <div class="subscribe">
+                    <h2>Newsletters Signup</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.......</p>
+                    <div class="signup">
+                        <form>
+                            <input type="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';"><input type="submit" value="Sign up">
+                        </form>
+                    </div>
+                </div>
+                <div class="community-poll">
+                    <h2>Community POll</h2>
+                    <p>What is the main reason for you to purchase products online?</p>
+                    <div class="poll">
+                        <form>
+                            <ul>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="1">
+                                    <span class="label"><label>More convenient shipping and delivery </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="2">
+                                    <span class="label"><label for="vote_2">Lower price</label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="3">
+                                    <span class="label"><label for="vote_3">Bigger choice</label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="5">
+                                    <span class="label"><label for="vote_5">Payments security </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="6">
+                                    <span class="label"><label for="vote_6">30-day Money Back Guarantee </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="7">
+                                    <span class="label"><label for="vote_7">Other.</label></span>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

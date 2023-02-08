@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<Model.EntityFramework.Category>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div id="layoutSidenav">
+    <div id="layoutSidenav_content">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+            </div>
+            <div style="margin:15px 0 0 20px">
+                @Html.ActionLink("Add New Category", "Create", "Category", new { @class = "btn btn-primary" })
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>DisplayOrder</th>
+                            <th>MetaKeywords</th>
+                            <th>CreatedDate</th>
+                            <th>ModifiedDate</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblUser">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td>@item.Name</td>
+                                <td>@item.DisplayOrder</td>
+                                <td>@item.MetaKeywords</td>
+                                <td>@item.CreatedDate</td>
+                                <td>@item.ModifiedDate</td>
+                                <td>@item.Status</td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "Category", new { id = item.ID }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Delete", "Delete", "Category", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @strSearch = ViewBag.strSearch }))
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

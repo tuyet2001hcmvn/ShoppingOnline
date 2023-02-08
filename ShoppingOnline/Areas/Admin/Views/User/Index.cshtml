@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<Model.EntityFramework.User>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+        <script>
+            $('.btn-active').off('click').click(function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.ajax({
+                    url: "/Admin/User/ChangeStatus",
+                    data: { id: id },
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (response) {
+                        if (response.status)
+                            $(this).text('Kích hoạt');
+                        else
+                            $(this).text('khóa');
+                    }
+                });
+            });
+        </script>
+    }
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    DataTable Example
+                </div>
+                <div style="margin:15px 0 0 20px">
+                    @Html.ActionLink("Add New User", "Create", "User", new {@class = "btn btn-primary" })
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayName("STT")</th>
+                                <th>UserName</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>CreatedDate</th>
+                                <th>ModifiedDate</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblUser">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.CreatedDate</td>
+                                    <td>@item.ModifiedDate</td>
+                                    <td><a href="#" class="btn-active" data-id="@item.ID">@(item.Status ? "Kích hoạt" : "Khóa")</a></td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "User", new { id = item.ID }, new { @class = "btn btn-primary" })
+                                        @Html.ActionLink("Delete", "Delete", "User", new { id = item.ID }, new { @class = "btn btn-danger" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @strSearch = ViewBag.strSearch }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
